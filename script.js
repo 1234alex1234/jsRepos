@@ -1,10 +1,10 @@
-let title = 1;
-let screens = 2;
-let screenPrice;
-let fullPrice;
-let adaptive;
+ let title;
+ let screens;
+ let screenPrice;
+ let rollback;
+ let fullPrice;
+ let adaptive;
 
-alert('Привет, Сергей!');
+ alert('Привет, Сергей');
 
-console.log('1');
-
+ console.log('Как у Вас дела');
