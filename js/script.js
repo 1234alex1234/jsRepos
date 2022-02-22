@@ -14,6 +14,7 @@ const totalInput5 = document.getElementsByClassName('total-input')[4];
 let screens = document.querySelectorAll('.screen');
 
 
+
 const isNumber = function (num) {
   return !isNaN(parseFloat(num)) && isFinite(num);
 };
@@ -54,22 +55,16 @@ const appData = {
     appData.addservices();
     appData.addPrices();
     range.addEventListener("input", appData.getRollback2);
-    appData.logger();
-    appData.showResult();
+    appData.addNull();
+    // appData.logger();
   },
 
   showResult: function () {
-    appData.screens.find(function (item) {
-      if (item.price == 0 || item.count == 0) {
-        return;
-      } else {
-        totalInput1.value = appData.screenPrice;
-        totalInput2.value = appData.sumCount;
-        totalInput3.value = appData.serviceNumberPrice + appData.servicePercentPrice;
-        totalInput4.value = appData.fullPrice;
-        totalInput5.value = appData.rollbackPrice;
-      }
-    });
+    totalInput1.value = appData.screenPrice;
+    totalInput2.value = appData.sumCount;
+    totalInput3.value = appData.serviceNumberPrice + appData.servicePercentPrice;
+    totalInput4.value = appData.fullPrice;
+    totalInput5.value = appData.rollbackPrice;
   },
 
   addScreens: function () {
@@ -88,6 +83,7 @@ const appData = {
       });
     });
   },
+
   addservices: function () {
     otherItemsPercent.forEach(function (item) {
 
@@ -113,8 +109,10 @@ const appData = {
   },
 
   addScreenBlock: function () {
+    screens = document.querySelectorAll('.screen');
     const cloneScreen = screens[0].cloneNode(true);
-
+    const cloneInput = cloneScreen.querySelector('input');
+    cloneInput.value = '';
     screens[screens.length - 1].after(cloneScreen);
   },
 
@@ -141,11 +139,29 @@ const appData = {
     }
   },
 
+  addNull: function () {
+    screens = document.querySelectorAll('.screen');
+    let isError = false;
+
+    screens.forEach(function (screen) {
+      const select = screen.querySelector('select').value;
+      const input = screen.querySelector('input').value;
+
+      if (select === '' || input === '') {
+        isError = true;
+      }
+    });
+
+    if (!isError) {
+      appData.showResult();
+    } else {
+      alert("Заполни поля!");
+    }
+  },
 
   getRollback: function () {
     span.textContent = +range.value;
     appData.rollback = +range.value;
-    console.log("роллбек", appData.rollback);
   },
 
   getRollback2: function () {
@@ -154,9 +170,27 @@ const appData = {
 
   logger: function () {
     console.log("Стоимость доп услуг", appData.allServicePrices);
-    console.log(appData.getRollbackMassage());
     console.log("Стоимость с учетом скидки", appData.servicePercentPrice);
-    console.log(appData.screens);
+
+    console.log(title);
+
+    console.log(startBtn);
+    console.log(resetBtn);
+
+    console.log(screenBtn);
+
+    console.log(otherItemsPercent);
+    console.log(otherItemsNumber);
+
+    console.log(range);
+    console.log(span);
+    console.log(screens);
+
+    console.log(totalInput1);
+    console.log(totalInput2);
+    console.log(totalInput3);
+    console.log(totalInput4);
+    console.log(totalInput5);
 
     for (let key in appData) {
       console.log(key + ":" + appData[key]);
@@ -165,25 +199,3 @@ const appData = {
 };
 
 appData.init();
-
-// appData.start();
-
-// console.log(title);
-
-// console.log(startBtn);
-// console.log(resetBtn);
-
-// console.log(screenBtn);
-
-// console.log(otherItemsPercent);
-// console.log(otherItemsNumber);
-
-// console.log(range);
-// console.log(span);
-// console.log(screens);
-
-// console.log(totalInput1);
-// console.log(totalInput2);
-// console.log(totalInput3);
-// console.log(totalInput4);
-// console.log(totalInput5);
