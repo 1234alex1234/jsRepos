@@ -51,6 +51,7 @@ const appData = {
   },
 
   start: function () {
+    appData.getNull();
     appData.addScreens();
     appData.addservices();
     appData.addPrices();
@@ -68,20 +69,26 @@ const appData = {
   },
 
   addScreens: function () {
-    let screens = document.querySelectorAll('.screen');
+    appData.screens.length = 0;
+    screens = document.querySelectorAll('.screen');
     screens.forEach(function (screen, index) {
 
       const select = screen.querySelector('select');
       const input = screen.querySelector('input');
       const selectName = select.options[select.selectedIndex].textContent;
 
-      appData.screens.push({
-        id: index,
-        name: selectName,
-        price: +input.value * +select.value,
-        count: +input.value
-      });
+      if (input.value > 0 && select.selectedIndex !== 0) {
+        appData.screens.push({
+          id: index,
+          name: selectName,
+          price: +input.value * +select.value,
+          count: +input.value
+        });
+      }
     });
+
+    console.log(screens);
+    console.log(appData.screens);
   },
 
   addservices: function () {
@@ -129,14 +136,17 @@ const appData = {
       appData.servicePercentPrice += +appData.screenPrice * (appData.servicesPercent[keys] / 100);
     }
 
+
     appData.fullPrice = appData.screenPrice + appData.serviceNumberPrice + appData.servicePercentPrice;
     appData.rollbackPrice = appData.fullPrice - appData.fullPrice * (appData.rollback / 100);
 
-    for (let screen of appData.screens) {
+    appData.screens.forEach(function (screen) {
       if (screen.count !== 0 && screen.price !== 0) {
         appData.sumCount += screen.count;
       }
-    }
+    });
+
+    console.log(appData.fullPrice);
   },
 
   addNull: function () {
@@ -152,7 +162,8 @@ const appData = {
       }
     });
 
-    if (!isError) {
+
+    if (!isError && (appData.screens.length == screens.length)) {
       appData.showResult();
     } else {
       alert("Заполни поля!");
@@ -166,6 +177,16 @@ const appData = {
 
   getRollback2: function () {
     totalInput5.value = appData.fullPrice - appData.fullPrice * (appData.rollback / 100);
+  },
+
+  getNull: function () {
+    appData.screens.length = 0;
+    appData.sumCount = 0;
+    screens.length = 0;
+    appData.screenPrice = 0;
+    appData.fullPrice = 0;
+    appData.serviceNumberPrice = 0;
+    appData.servicePercentPrice = 0;
   },
 
   logger: function () {
