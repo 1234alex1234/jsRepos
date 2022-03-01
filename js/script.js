@@ -22,6 +22,9 @@ const mainControlsInput = cmsVariants.querySelector('.main-controls__input');
 
 
 
+
+
+
 const isNumber = function (num) {
   return !isNaN(parseFloat(num)) && isFinite(num);
 };
@@ -254,11 +257,24 @@ const appData = {
 
       select.setAttribute("disabled", true);
       input.setAttribute("disabled", true);
+
     });
 
     screenBtn.setAttribute("disabled", true);
     cmsOpen.setAttribute("disabled", true);
     cmsSelect.setAttribute("disabled", true);
+    const cmsOtherInput = document.querySelector('#cms-other-input');
+    cmsOtherInput.setAttribute("disabled", true);
+
+    otherItemsPercent.forEach((item) => {
+      const input = item.querySelector('input');
+      input.setAttribute("disabled", true);
+    });
+
+    otherItemsNumber.forEach((item) => {
+      const input = item.querySelector('input');
+      input.setAttribute("disabled", true);
+    });
   },
 
   AddNoneScreens: function () {
@@ -288,8 +304,20 @@ const appData = {
     });
 
     screenBtn.removeAttribute("disabled");
-    cmsOpen.removeAttribute("disabled", true);
-    cmsSelect.removeAttribute("disabled", true);
+    cmsOpen.removeAttribute("disabled");
+    cmsSelect.removeAttribute("disabled");
+    const cmsOtherInput = document.querySelector('#cms-other-input');
+    cmsOtherInput.removeAttribute("disabled");
+
+    otherItemsPercent.forEach((item) => {
+      const input = item.querySelector('input');
+      input.removeAttribute("disabled");
+    });
+
+    otherItemsNumber.forEach((item) => {
+      const input = item.querySelector('input');
+      input.removeAttribute("disabled");
+    });
   },
 
   startVisible: function () {
