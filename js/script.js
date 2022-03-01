@@ -17,6 +17,8 @@ let screensDoc = document.querySelectorAll('.screen');
 let mainControl = document.querySelector('.main-controls__checkbox');
 let cmsOpen = document.getElementById('cms-open');
 const cmsVariants = document.querySelector('.hidden-cms-variants');
+let cmsSelect = document.querySelector('#cms-select');
+const mainControlsInput = cmsVariants.querySelector('.main-controls__input');
 
 
 
@@ -141,12 +143,11 @@ const appData = {
   //Усложненка==================================
   visabilityTypeOfCms: function () {
     const viewsSelect = document.querySelector('#cms-select');
-    const mainControlsInput = cmsVariants.querySelector('.main-controls__input');
 
     if (cmsVariants.style.display == 'none') {
       cmsVariants.style.display = 'flex';
 
-      const cmsSelect = document.querySelector('#cms-select');
+      cmsSelect = document.querySelector('#cms-select');
       const viewsOptions = viewsSelect.querySelectorAll('option')[2];
 
       cmsSelect.addEventListener("click", function () {
@@ -294,25 +295,28 @@ const appData = {
   hiddenTypeOfCms: function () {
     const mainControlsInput = cmsVariants.querySelector('.main-controls__input');
     const viewsSelect = document.querySelector('#cms-select');
-    mainControlsInput.style.display = 'none';
-    viewsSelect.style.display = 'none';
+    cmsVariants.style.display = 'none';
   },
 
 
   chekedFalse: function () {
     otherItemsPercent.forEach((item) => {
-      //Почему то эти две галки не пропадают:(===============
+
       const check = item.querySelector('input[type="checkbox"]');
 
-      check.cheked = false;
-      //======================================================
+      if (check.checked) {
+        check.checked = false;
+      }
+
     });
 
     otherItemsNumber.forEach((item) => {
 
       const check = item.querySelector('input[type="checkbox"]');
 
-      check.checked = false;
+      if (check.checked) {
+        check.checked = false;
+      }
     });
 
     cmsOpen.checked = false;
@@ -324,6 +328,8 @@ const appData = {
     totalInput3.value = 0;
     totalInput4.value = 0;
     totalInput5.value = 0;
+    cmsSelect.value = '';
+    mainControlsInput.style.display = 'none';
   },
 
   logger: function () {
