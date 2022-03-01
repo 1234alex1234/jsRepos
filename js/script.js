@@ -66,6 +66,7 @@ const appData = {
     this.addPrices();
     range.addEventListener("input", this.getRollback2.bind(this));
     this.addNull();
+
     // appData.logger();
   },
 
@@ -256,6 +257,8 @@ const appData = {
     });
 
     screenBtn.setAttribute("disabled", true);
+    cmsOpen.setAttribute("disabled", true);
+    cmsSelect.setAttribute("disabled", true);
   },
 
   AddNoneScreens: function () {
@@ -285,6 +288,8 @@ const appData = {
     });
 
     screenBtn.removeAttribute("disabled");
+    cmsOpen.removeAttribute("disabled", true);
+    cmsSelect.removeAttribute("disabled", true);
   },
 
   startVisible: function () {
